@@ -12,7 +12,7 @@
 </head>
 <body>
 	<header class="text-center"><h1>CENIC 2015 Program</h1></header>
-	<form>
+	<form id="filterForm">
 		<div class="row">
 			<div class="small-12 columns">
 				<label>Filter <input id="filter" type="search" disabled="disabled"></label>
@@ -96,6 +96,7 @@
   				}).keyup(function () {
 					$(this).change();
 				});
+				$('#filterForm').submit(function () { return false; });
 				filter.removeAttr('disabled');
 			},
 			failure: failure
