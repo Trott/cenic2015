@@ -39,8 +39,22 @@
 				if (! data) {
 					return failure(new Error('Data was not defined'));
 				}
+
 				var entries = data.map(function (entry) {
-					return $('<div class="panel">').text(entry.name);
+					var base = $('<div class="panel"></div>');
+					var name = $('<h2>').text(entry.name);
+					
+					entry.description = entry.description || '';
+					var paragraphs = entry.description.split('\n');
+					var description = $('<div>').append(
+						paragraphs.map(function (paragraph) {
+							return $('<p>').text(paragraph);
+						})
+					);
+					base = base.append(name);
+					base = base.append(description);
+					console.log(new Date(entry.start));
+					return base;
 				});
 				var myProgram = entries.reduce(function (accumulator, entry) {
 					return accumulator.append($('<div class="small-12 columns"></div>').append(entry));
