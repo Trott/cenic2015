@@ -35,7 +35,7 @@
 		}
 
 		var formatTime = function (timestamp, format) {
-			return moment(timestamp).tz('America/Los_Angeles').format(format)
+			return moment(timestamp).tz('America/Los_Angeles').format(format);
 		};
 
 		$.ajax({
@@ -46,13 +46,21 @@
 					return failure(new Error('Data was not defined'));
 				}
 
+				data = data.sort(function (a,b) {
+					var diff = moment(a.start).valueOf() - moment(b.start).valueOf();
+					if (diff === 0) {
+						diff = moment(a.end).valueOf() - moment(b.end).valueOf();
+					}
+					return diff;
+				});
+
 				var entries = data.map(function (entry) {
 					var base = $('<div class="panel"></div>');
 					var name = $('<h2>').text(entry.name);
 					
 					entry.description = entry.description || '';
 					var paragraphs = entry.description.split('\n');
-					var description = $('<div>').append(
+					var description = $('<blockquote>').append(
 						paragraphs.map(function (paragraph) {
 							return $('<p>').text(paragraph);
 						})
