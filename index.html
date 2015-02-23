@@ -23,6 +23,8 @@
 	</div>
 <script src="bower_components/foundation/js/vendor/jquery.js"></script>
 <script src="bower_components/foundation/js/foundation.min.js"></script>
+<script src="bower_components/moment/moment.js"></script>
+<script src="bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.min.js"></script>
 <script>
 	$(document).foundation();
 	$(document).ready(function () {
@@ -31,6 +33,10 @@
 			program.text('Bummer. Looks like something went wrong.');
 			console.log(err);
 		}
+
+		var formatTime = function (timestamp, format) {
+			return moment(timestamp).tz('America/Los_Angeles').format(format)
+		};
 
 		$.ajax({
 			url: './init.json',
@@ -51,9 +57,11 @@
 							return $('<p>').text(paragraph);
 						})
 					);
+
+					var time = $('<p>').text(formatTime(entry.start, 'MMMM D: h:mma') + '-' + formatTime(entry.end, 'h:mma'));
 					base = base.append(name);
+					base = base.append(time);
 					base = base.append(description);
-					console.log(new Date(entry.start));
 					return base;
 				});
 				var myProgram = entries.reduce(function (accumulator, entry) {
