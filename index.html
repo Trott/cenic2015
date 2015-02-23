@@ -12,6 +12,13 @@
 </head>
 <body>
 	<header class="text-center"><h1>CENIC 2015 Program</h1></header>
+	<form>
+		<div class="row">
+			<div class="small-12 columns">
+				<label>Filter <input id="filter" type="search" disabled="disabled"></label>
+			</div>
+		</div>
+	</form>
 	<div id="program">
 		<div class="row">
 			<div class="small-12 columns">
@@ -77,6 +84,19 @@
 				}, $('<div class="row">'));
 				program.empty();
 				program.append(myProgram);
+				var filter = $('#filter');
+				filter.change(function () {
+					var searchTerms = $(this).val();
+    				if (searchTerms) {
+      					program.find(".panel:not(:contains(" + searchTerms + "))").addClass('hide');
+      					program.find(".panel:contains(" + searchTerms + ")").removeClass('hide');
+    				} else {
+      					program.find(".panel").removeClass('hide');
+    				}
+  				}).keyup(function () {
+					$(this).change();
+				});
+				filter.removeAttr('disabled');
 			},
 			failure: failure
 		});
