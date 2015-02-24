@@ -35,6 +35,10 @@
 <script>
 	$(document).foundation();
 	$(document).ready(function () {
+		// case-insensitive contains
+		jQuery.expr[':'].contains_i = function(a,i,m){
+    		return (a.textContent || a.innerText || "").toLowerCase().indexOf(m[3].toLowerCase()) !== -1;
+		};
 		var program = $('#program');
 		var failure = function (err) {
 			program.text('Bummer. Looks like something went wrong.');
@@ -88,8 +92,8 @@
 				filter.change(function () {
 					var searchTerms = $(this).val();
     				if (searchTerms) {
-      					program.find(".panel:not(:contains(" + searchTerms + "))").addClass('hide');
-      					program.find(".panel:contains(" + searchTerms + ")").removeClass('hide');
+      					program.find(".panel:not(:contains_i(" + searchTerms + "))").addClass('hide');
+      					program.find(".panel:contains_i(" + searchTerms + ")").removeClass('hide');
     				} else {
       					program.find(".panel").removeClass('hide');
     				}
