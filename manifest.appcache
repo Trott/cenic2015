@@ -1,0 +1,24 @@
+CACHE MANIFEST
+
+#version 1.0 2-24-2015
+
+CACHE:
+
+#style sheets
+bower_components/foundation/css/foundation.css
+bower_components/foundation/css/foundation.css.map
+bower_components/foundation/css/normalize.css
+bower_components/foundation/css/normalize.css.map
+
+#javascript files
+bower_components/foundation/js/vendor/modernizr.js
+bower_components/foundation/js/vendor/jquery.js
+bower_components/foundation/js/foundation.min.js
+bower_components/moment/moment.js
+bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.min.js
+
+#JSON
+init.json
+
+NETWORK:
+*
